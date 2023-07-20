@@ -19,8 +19,13 @@
  [diffusion]
    type = DarcyPressure
    variable = pressure
-   permeability = 0.8451e-09
+   
  []
+[]
+[Materials]
+[filter]
+type = PackedColumn
+[]
 []
 [BCs]
  [inlet]
@@ -43,6 +48,7 @@
  petsc_options_value = 'hypre boomeramg'
 []
 [Outputs]
-exodus = true
+#exodus = true
+perf_graph = true
 []
 

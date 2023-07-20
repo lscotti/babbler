@@ -3,42 +3,49 @@
   dim = 2
   nx = 10
   ny = 10
-  
+
 []
 
 [Variables]
- [pressure]
- []
+  [pressure]
+  []
 []
 [Kernels]
- [diffusion]
-   type = DarcyPressure
-   variable = pressure
-   permeability = 0.8451e-09
- []
+  [diffusion]
+    type = DarcyPressure # Zero-gravity, divergence-free form of Darcy's law
+    variable = pressure # Operate on the "pressure" variable from above
+  []
+[]
+
+[Materials]
+  [filter]
+    type = PackedColumn # Provides permeability and viscosity of water through packed 1mm spheres
+    diameter = 2
+    viscosity = 1e-3
+  []
 []
 [BCs]
- [inlet]
-  type = ADDirichletBC
-  variable = pressure
-  boundary = left
-  value= 0
- []
- [outlet]
-  type = ADDirichletBC
-  variable = pressure
-  boundary = right
-  value = 1
- []
+  [inlet]
+    type = ADDirichletBC
+    variable = pressure
+    boundary = left
+    value = 0
+  []
+  [outlet]
+    type = ADDirichletBC
+    variable = pressure
+    boundary = right
+    value = 1
+  []
 []
 [Executioner]
- type = Steady
- solve_type = PJFNK
- petsc_options_iname = '-pc_type -pc_hypre_type'
- petsc_options_value = 'hypre boomeramg'
+  type = Steady
+  solve_type = PJFNK
+  petsc_options_iname = '-pc_type -pc_hypre_type'
+  petsc_options_value = 'hypre boomeramg'
 []
 [Outputs]
-exodus = true
-#perf_graph = true
+  exodus = true
+  #perf_graph = true
 []
 
