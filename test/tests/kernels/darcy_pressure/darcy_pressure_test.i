@@ -12,16 +12,13 @@
 []
 [Kernels]
   [diffusion]
-    type = DarcyPressure # Zero-gravity, divergence-free form of Darcy's law
-    variable = pressure # Operate on the "pressure" variable from above
+    type = DarcyPressure
+    variable = pressure
   []
 []
-
 [Materials]
   [filter]
     type = PackedColumn # Provides permeability and viscosity of water through packed 1mm spheres
-    diameter = 2
-    viscosity = 1e-3
   []
 []
 [BCs]

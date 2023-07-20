@@ -7,48 +7,50 @@
   ymax = 0.0257
 []
 [Problem]
- type = FEProblem
- coord_type = RZ
- rz_coord_axis =X
+  type = FEProblem
+  coord_type = RZ
+  rz_coord_axis = X
 []
 [Variables]
- [pressure]
- []
-[]
-[Kernels]
- [diffusion]
-   type = DarcyPressure
-   variable = pressure
-   
- []
+  [pressure]
+  []
 []
 [Materials]
-[filter]
-type = PackedColumn
+  [filter]
+    type = PackedColumn # Provides permeability and viscosity of water through packed 1mm spheres
+    diameter = 2
+    viscosity = 1e-03
+  []
 []
+[Kernels]
+  [diffusion]
+    type = DarcyPressure # Zero-gravity, divergence-free form of Darcy's law
+    variable = pressure # Operate on the "pressure" variable from above
+  []
 []
+
 [BCs]
- [inlet]
-  type = ADDirichletBC
-  variable = pressure
-  boundary = left
-  value= 4000
- []
- [outlet]
-  type = ADDirichletBC
-  variable = pressure
-  boundary = right
-  value = 0
- []
+  [inlet]
+    type = ADDirichletBC
+    variable = pressure
+    boundary = left
+    value = 4000
+  []
+  [outlet]
+    type = ADDirichletBC
+    variable = pressure
+    boundary = right
+    value = 0
+  []
 []
 [Executioner]
- type = Steady
- solve_type = NEWTON
- petsc_options_iname = '-pc_type -pc_hypre_type'
- petsc_options_value = 'hypre boomeramg'
+  type = Steady
+  solve_type = NEWTON
+  petsc_options_iname = '-pc_type -pc_hypre_type'
+  petsc_options_value = 'hypre boomeramg'
 []
 [Outputs]
-#exodus = true
-perf_graph = true
+  #exodus = true
+  perf_graph = true
 []
 
